@@ -23,9 +23,9 @@ El aprendizaje se gamifica a través de un sistema de **rachas**: cada respuesta
 Incrustar en la descripción de sección de Moodle/EducaMadrid:
 ```html
 <p><iframe style="border-radius: 14px; display: block;"
-    src="https://albertosanchezeuropea.github.io/banner-racha-tecnicas-almacen/banner_almacen.html"
+    src="https://albertosanchezedu.github.io/banner-racha-tecnicas-almacen/banner_almacen.html"
     width="100%" height="420" frameborder="0" scrolling="no">
-</iframe></p>
+  </iframe></p>
 ```
 
 ---
