@@ -9,7 +9,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{background:#F06B6B;font-family:'Fira Sans',Arial,sans-serif;min-height:100vh;}
-body{padding:18px 20px 20px;}
+body{padding:18px 20px 28px;}
 .fe{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1;}
 .ei{position:absolute;opacity:0.12;animation:floatUp linear infinite;}
 @keyframes floatUp{0%{transform:translateY(110%);opacity:0;}8%{opacity:0.12;}90%{opacity:0.12;}100%{transform:translateY(-10%);opacity:0;}}
@@ -167,9 +167,9 @@ var EMOJIS=['📦','🏭','🚛','📋','🔍','🏷️','🪣','📊','⚙️',
 function gToday(){var d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
 function gDay(){return Math.floor((new Date()-new Date(2024,8,1))/86400000);}
 
-var streak=0,best=0,atd=false;
-try{streak=parseInt(localStorage.getItem('alm_s')||'0');best=parseInt(localStorage.getItem('alm_b')||'0');atd=localStorage.getItem('alm_atd')===gToday();}catch(e){}
-function save(){try{localStorage.setItem('alm_s',streak);localStorage.setItem('alm_b',best);localStorage.setItem('alm_atd',gToday());}catch(e){}}
+var streak=0,best=0,atd=false,savedAns=-1;
+try{streak=parseInt(localStorage.getItem("alm_s")||"0");best=parseInt(localStorage.getItem("alm_b")||"0");atd=localStorage.getItem("alm_atd")===gToday();savedAns=atd?parseInt(localStorage.getItem("alm_ans")||"-1"):-1;}catch(e){}
+function save(ans){try{localStorage.setItem("alm_s",streak);localStorage.setItem("alm_b",best);localStorage.setItem("alm_atd",gToday());if(ans!==undefined)localStorage.setItem("alm_ans",ans);}catch(e){}}
 
 function getMot(n){var m=MOTS[0][1];for(var i=0;i<MOTS.length;i++){if(n>=MOTS[i][0])m=MOTS[i][1];}return m;}
 function getFire(n){if(n===0)return'⚡';if(n<3)return'🔥';if(n<7)return'💥';if(n<10)return'🌟';if(n<15)return'🏆';return'👑';}
@@ -194,24 +194,28 @@ function render(){
 function renderMC(el,q){
   var dis=atd?'disabled':'';
   var h='<div class="qhook">'+q.h+'</div><div class="qtxt">'+q.q+'</div><div class="qopts">';
-  for(var i=0;i<q.o.length;i++)h+='<button class="qopt" '+dis+' onclick="answerMC('+i+')">'+String.fromCharCode(65+i)+') '+q.o[i]+'</button>';
+  for(var i=0;i<q.o.length;i++){
+    var cls='qopt';
+    if(atd&&savedAns>=0){if(i===q.a)cls='qopt correct';else if(i===savedAns&&savedAns!==q.a)cls='qopt wrong';}
+    h+='<button class="'+cls+'" '+dis+' onclick="answerMC('+i+')">'+String.fromCharCode(65+i)+') '+q.o[i]+'</button>';
+  }
   h+='</div><div class="qfact" id="qf" style="display:'+(atd?'block':'none')+'">💡 '+q.f+'</div>';
   h+='<button class="qnext" id="qn" style="display:'+(atd?'inline-block':'none')+'" onclick="nextQ()">Siguiente →</button>';
   el.innerHTML=h;
 }
 
 function answerMC(i){
-  if(atd)return;atd=true;
+  if(atd)return;atd=true;savedAns=i;
   var q=cQ,btns=document.querySelectorAll('.qopt');
   for(var b=0;b<btns.length;b++)btns[b].disabled=true;
   if(i===q.a){
     btns[i].className='qopt correct';
-    streak++;if(streak>best)best=streak;save();updUI();
+    streak++;if(streak>best)best=streak;save(i);updUI();
     var pr=PRIZES[Math.floor(Math.random()*PRIZES.length)],f=q.f;
     setTimeout(function(){showP(true,f,pr);},350);
   }else{
     btns[i].className='qopt wrong';btns[q.a].className='qopt correct';
-    var old=streak,f=q.f;streak=0;save();updUI();
+    var old=streak,f=q.f;streak=0;save(i);updUI();
     setTimeout(function(){showP(false,f,null,old);},350);
   }
   document.getElementById('qf').style.display='block';
