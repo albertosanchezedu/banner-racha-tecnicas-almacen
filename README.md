@@ -5,8 +5,10 @@ Banner interactivo diseñado para el aula virtual del módulo **Técnicas de Alm
 ## ¿Qué hace?
 
 Cada día aparece una pregunta diferente sobre el módulo — datos curiosos, situaciones reales, conceptos clave — que el alumno responde en segundos directamente desde la portada del curso.
+![github-small](https://github.com/albertosanchezedu/banner-racha-tecnicas-almacen/blob/main/Captura%20de%20pantalla%202026-03-15%20a%20las%2017.56.50%402x.png)
 
 El aprendizaje se gamifica a través de un sistema de **rachas**: cada respuesta correcta suma un día más a la racha. Los alumnos que mantengan la racha más alta pueden optar a **puntos extra** en el módulo formativo.
+![github-small](https://github.com/albertosanchezedu/banner-racha-tecnicas-almacen/blob/main/Captura%20de%20pantalla%202026-03-15%20a%20las%2017.55.57%402x.png)
 
 ## Características
 
