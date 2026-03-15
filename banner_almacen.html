@@ -387,16 +387,17 @@ function nextQ(){
   }
 }
 
-function showP(win,fact,pr,newShield){
+function showP(win,fact,pr,newShieldOrLost){
   if(win&&pr){
     document.getElementById('pe').textContent=pr.e;
     var title=pr.t;
-    if(newShield) title='🛡️ ¡Escudo de racha conseguido!';
+    if(newShieldOrLost) title='🛡️ ¡Escudo de racha conseguido!';
     document.getElementById('pt').textContent=title;
     var desc='💡 '+fact;
-    if(newShield) desc='Has llegado a una racha de '+streak+'. Tienes un escudo que absorberá tu próximo fallo. 💡 '+fact;
+    if(newShieldOrLost) desc='Has llegado a una racha de '+streak+'. Tienes un escudo que absorberá tu próximo fallo. 💡 '+fact;
     document.getElementById('pd').textContent=desc;
   }else{
+    var lost=newShieldOrLost||0;
     document.getElementById('pe').textContent='💔';
     document.getElementById('pt').textContent=lost>0?'¡Racha de '+lost+' perdida!':'¡Casi!';
     document.getElementById('pd').textContent='💡 '+fact;
