@@ -29,4 +29,4 @@ Incrustar en la descripción de sección de Moodle/EducaMadrid:
 ```
 
 ---
-*Creado por Alberto Sánchez Cabanillas - Docente FP Comercio y Marketing · Curso 2025-2026*
+*Creado por Alberto Sánchez Cabanillas — Docente FP Comercio y Marketing · [LinkedIn](https://www.linkedin.com/in/albertosanchezcabanillas/) · Curso 2025-2026*
