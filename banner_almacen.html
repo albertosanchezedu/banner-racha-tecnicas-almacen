@@ -255,8 +255,20 @@ body{padding:18px 20px 28px;-webkit-user-select:none;-moz-user-select:none;user-
   <div class="bonus-box">
     <div class="bonus-icon">🎁</div>
     <div class="bonus-title">¡Bonus de bienvenida!</div>
-    <div class="bonus-txt">Has acertado tus 3 primeras preguntas seguidas.<br><strong style="color:#C4F135;">¡Te regalamos 50 XP!</strong><br><br>Ya puedes canjear tu primer código de nota extra en el Aula Virtual. ¡Es nuestra forma de darte la bienvenida!</div>
-    <button class="bonus-btn" onclick="closeBonusOv()">¡Genial! →</button>
+    <div class="bonus-txt">Has acertado tus 3 primeras preguntas seguidas.<br><strong style="color:#C4F135;">¡Te regalamos 50 XP!</strong><br><br>Ya tienes XP suficiente para tu <strong>primer canje de nota extra</strong> en el Aula Virtual.<br><br>Pulsa el botón de nivel (arriba a la derecha) → <em>"Canjear XP por nota extra"</em>.</div>
+    <button class="bonus-btn" onclick="closeBonusOv();openCanje();">🎓 Ir a canjear ahora</button>
+    <button style="width:100%;background:transparent;border:none;color:rgba(255,255,255,.4);font-family:'Fira Sans',sans-serif;font-size:10px;cursor:pointer;margin-top:6px;padding:4px;" onclick="closeBonusOv()">Lo haré más tarde</button>
+  </div>
+</div>
+
+<!-- POPUP TRAMO ALCANZADO -->
+<div class="bonus-ov" id="tramoOv">
+  <div class="bonus-box">
+    <div class="bonus-icon" id="tramoIcon">⬆️</div>
+    <div class="bonus-title" id="tramoTitle">¡Nuevo tramo desbloqueado!</div>
+    <div class="bonus-txt" id="tramoTxt"></div>
+    <button class="bonus-btn" onclick="closeTramoOv();openCanje();">🎓 Canjear ahora</button>
+    <button style="width:100%;background:transparent;border:none;color:rgba(255,255,255,.4);font-family:'Fira Sans',sans-serif;font-size:10px;cursor:pointer;margin-top:6px;padding:4px;" onclick="closeTramoOv()">Lo haré más tarde</button>
   </div>
 </div>
 
@@ -526,8 +538,11 @@ function getMult(){return streak>=10?2:streak>=5?1.5:1;}
 function addXP(amount){
   var mult=getMult();
   var gain=Math.round(amount*mult);
-  var oldIdx=getLigaIdx(xp);xp+=gain;
+  var oldIdx=getLigaIdx(xp);
+  var xpAntes=xp;
+  xp+=gain;
   var newIdx=getLigaIdx(xp);
+  setTimeout(function(){checkTramoAlcanzado(xpAntes,xp);},400);
   return{gain:gain,levelUp:newIdx>oldIdx,liga:newIdx>oldIdx?LIGAS[newIdx]:null};
 }
 function subtractXP(amount){
@@ -611,6 +626,28 @@ document.addEventListener('click',function(e){
 
 // BONUS BIENVENIDA
 function closeBonusOv(){document.getElementById('bonusOv').classList.remove('show');}
+function closeTramoOv(){document.getElementById('tramoOv').classList.remove('show');}
+
+function checkTramoAlcanzado(xpAntes, xpDespues){
+  // Ver si hemos cruzado el umbral de un nuevo tramo
+  var tramoAntes=null,tramoDespues=null;
+  for(var i=0;i<TRAMOS.length;i++){
+    if(xpAntes>=TRAMOS[i].xp) tramoAntes=TRAMOS[i];
+    if(xpDespues>=TRAMOS[i].xp) tramoDespues=TRAMOS[i];
+  }
+  if(tramoDespues&&(!tramoAntes||tramoDespues.xp>tramoAntes.xp)){
+    // Nuevo tramo alcanzado
+    var tieneCodigoAnterior=lastCodigo!=='';
+    document.getElementById('tramoIcon').textContent='🎓';
+    document.getElementById('tramoTitle').textContent='¡Tramo '+tramoDespues.nota.toFixed(2)+' pts desbloqueado!';
+    var txt='Ya tienes <strong style="color:#C4F135;">'+xpDespues+' XP</strong> — suficiente para canjear <strong>+'+tramoDespues.nota.toFixed(2)+' puntos extra</strong> en tu nota final.';
+    if(tieneCodigoAnterior){
+      txt+='<br><br>⚠️ <strong>Recuerda:</strong> ya tienes un código anterior. Usa la opción <em>"Ya canjeé antes"</em> para acumular tu XP previo con el nuevo.';
+    }
+    document.getElementById('tramoTxt').innerHTML=txt;
+    setTimeout(function(){document.getElementById('tramoOv').classList.add('show');},800);
+  }
+}
 function checkBonus(correct){
   if(bonusGiven)return;
   if(correct){
