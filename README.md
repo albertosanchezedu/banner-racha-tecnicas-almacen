@@ -2,6 +2,8 @@
 
 Banner interactivo gamificado diseñado para el aula virtual del módulo **Técnicas de Almacén** (FP Comercio y Marketing).
 
+![github-small](https://github.com/albertosanchezedu/banner-racha-tecnicas-almacen/blob/5c750cd6860e7cfdb5ad06eb9844e4179b70f67d/images/banner_inicial.png)
+
 ## 🚀 Pruébalo ahora
 
 **[→ Testearlo en directo](https://albertosanchezedu.github.io/banner-racha-tecnicas-almacen/banner_almacen.html)**
@@ -28,7 +30,12 @@ El aprendizaje se gamifica a través de un sistema completo de **rachas, XP, lig
 ### ⚡ Sistema de rachas y multiplicadores
 - Cada respuesta correcta **suma 1 a la racha**
 - Un fallo **reinicia la racha a 0** y **resta 10 XP**
+
+![github-small](https://github.com/albertosanchezedu/banner-racha-tecnicas-almacen/blob/5c750cd6860e7cfdb5ad06eb9844e4179b70f67d/images/banner_rachaperdida.png)
+
 - El multiplicador de XP es visible en todo momento en el bloque de racha:
+
+![github-small](https://github.com/albertosanchezedu/banner-racha-tecnicas-almacen/blob/5c750cd6860e7cfdb5ad06eb9844e4179b70f67d/images/banner_rachamultiplicador.png)
 
 | Racha | Multiplicador |
 |-------|--------------|
@@ -42,6 +49,8 @@ El aprendizaje se gamifica a través de un sistema completo de **rachas, XP, lig
 - Se pueden acumular varios escudos
 - También se ganan en el mini-juego bonus
 
+![github-small](https://github.com/albertosanchezedu/banner-racha-tecnicas-almacen/blob/5c750cd6860e7cfdb5ad06eb9844e4179b70f67d/images/banner_protectoresracha.png)
+
 ### 🏆 Sistema de XP y ligas
 
 | Acción | XP |
@@ -50,6 +59,8 @@ El aprendizaje se gamifica a través de un sistema completo de **rachas, XP, lig
 | Respuesta incorrecta | -10 XP |
 
 Las 6 ligas por las que progresan los alumnos:
+
+![github-small](https://github.com/albertosanchezedu/banner-racha-tecnicas-almacen/blob/5c750cd6860e7cfdb5ad06eb9844e4179b70f67d/images/banner_XP.png)
 
 | Liga | XP necesario |
 |------|-------------|
@@ -65,10 +76,18 @@ El badge de nivel (esquina superior derecha) muestra la liga actual, barra de pr
 ### 🎁 Bonus de bienvenida
 Al acertar las **3 primeras preguntas seguidas**, el alumno recibe **50 XP de regalo** y un popup que le invita a hacer su primer canje. Es el anzuelo del sistema de fidelización — fácil al principio para que entiendan cómo funciona.
 
+![github-small](https://github.com/albertosanchezedu/banner-racha-tecnicas-almacen/blob/5c750cd6860e7cfdb5ad06eb9844e4179b70f67d/images/banner_popuptramodesbloqueado.png)
+
 ### ⚡ Mini-juego bonus
 - Se activa de forma **aleatoria cada ~7 preguntas** (60% de probabilidad)
 - Pantalla de aviso antes de empezar: "¡Bonus desbloqueado!"
 - **4 segundos** para tocar el mayor número de emojis posible
+
+![github-small](https://github.com/albertosanchezedu/banner-racha-tecnicas-almacen/blob/5c750cd6860e7cfdb5ad06eb9844e4179b70f67d/images/banner_popupbonus.png)
+
+![github-small](https://github.com/albertosanchezedu/banner-racha-tecnicas-almacen/blob/5c750cd6860e7cfdb5ad06eb9844e4179b70f67d/images/banner_juegobonus.png)
+
+![github-small](https://github.com/albertosanchezedu/banner-racha-tecnicas-almacen/blob/5c750cd6860e7cfdb5ad06eb9844e4179b70f67d/images/banner_finbonus.png)
 
 | Emojis | Premio |
 |--------|--------|
@@ -107,10 +126,17 @@ Sistema de fidelización progresivo — fácil al principio, difícil después. 
 
 ### Flujo de canje
 1. El alumno pulsa "Canjear XP" en el panel de niveles
-2. **Primera vez:** introduce nombre y apellidos → se genera su ID permanente
-3. **Canjes posteriores:** introduce su código anterior → el sistema acumula XP previo + actual
-4. Se genera un código personal e intransferible vinculado al nombre del alumno
-5. El alumno lo introduce en el **cuestionario de canje del Aula Virtual** → la nota se registra automáticamente en el calificador
+![github-small](https://github.com/albertosanchezedu/banner-racha-tecnicas-almacen/blob/5c750cd6860e7cfdb5ad06eb9844e4179b70f67d/images/banner_XP.png)
+![github-small](https://github.com/albertosanchezedu/banner-racha-tecnicas-almacen/blob/5c750cd6860e7cfdb5ad06eb9844e4179b70f67d/images/banner_pantallacanjeo.png)
+3. **Primera vez:** introduce nombre y apellidos → se genera su ID permanente
+![github-small](https://github.com/albertosanchezedu/banner-racha-tecnicas-almacen/blob/5c750cd6860e7cfdb5ad06eb9844e4179b70f67d/images/banner_pantallaprimercanjeo.png)
+4. **Canjes posteriores:** introduce su código anterior → el sistema acumula XP previo + actual
+![github-small](https://github.com/albertosanchezedu/banner-racha-tecnicas-almacen/blob/5c750cd6860e7cfdb5ad06eb9844e4179b70f67d/images/banner_pantallaacumularcanjeo.png)
+5. Se genera un código personal e intransferible vinculado al nombre del alumno
+![github-small](https://github.com/albertosanchezedu/banner-racha-tecnicas-almacen/blob/5c750cd6860e7cfdb5ad06eb9844e4179b70f67d/images/banner_pantallagenerado.png)
+6. El alumno lo introduce en el **cuestionario de canje del Aula Virtual** → la nota se registra automáticamente en el calificador
+![github-small](https://github.com/albertosanchezedu/banner-racha-tecnicas-almacen/blob/5c750cd6860e7cfdb5ad06eb9844e4179b70f67d/images/banner_cuestionario.png)
+![github-small]()
 
 ⚠️ Los códigos son personales. Cada código lleva el identificador del alumno y solo funciona para él.
 
