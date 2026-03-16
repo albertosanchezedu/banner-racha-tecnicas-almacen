@@ -8,15 +8,15 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{background:#F06B6B;font-family:'Fira Sans',Arial,sans-serif;min-height:100vh;position:relative;}
-body{padding:18px 20px 28px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
+body{padding:18px 20px 28px;-webkit-user-select:none;-moz-user-select:none;user-select:none;}
 .fe{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1;}
 .ei{position:absolute;opacity:0.12;animation:floatUp linear infinite;}
 @keyframes floatUp{0%{transform:translateY(110%);opacity:0;}8%{opacity:0.12;}90%{opacity:0.12;}100%{transform:translateY(-10%);opacity:0;}}
 
 /* TOPBAR */
 .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.mtag{display:inline-block;background:#C4F135;color:#1a1a1a;font-family:'Fira Sans',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:3px 11px;border-radius:4px;}
-.topright{display:flex;align-items:center;gap:6px;}
+.mtag{display:inline-block;background:#C4F135;color:#1a1a1a;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:3px 11px;border-radius:4px;}
+.topright{display:flex;align-items:center;gap:6px;position:relative;}
 
 /* NIVEL BADGE */
 .lvl-badge{display:flex;align-items:center;gap:5px;background:rgba(0,0,0,.2);border-radius:6px;padding:3px 8px;cursor:pointer;transition:background .15s;}
@@ -34,23 +34,47 @@ body{padding:18px 20px 28px;-webkit-user-select:none;-moz-user-select:none;-ms-u
 .shield-txt{font-size:9px;font-weight:700;color:rgba(255,255,255,.7);}
 .shield-badge.has-shield .shield-txt{color:#C4F135;}
 
-/* TITULO */
+/* PANEL DROPDOWN BAJO EL BADGE */
+.lvl-panel{display:none;position:absolute;top:calc(100% + 6px);right:0;width:220px;background:#1e1e1e;border-radius:10px;padding:14px;z-index:50;box-shadow:0 8px 24px rgba(0,0,0,.5);}
+.lvl-panel.open{display:block;}
+.lp-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.lp-icon{font-size:24px;}
+.lp-info{flex:1;}
+.lp-liga{font-size:13px;font-weight:700;color:#C4F135;}
+.lp-xp{font-size:10px;color:rgba(255,255,255,.5);}
+.lp-close{background:rgba(255,255,255,.1);border:none;border-radius:50%;width:20px;height:20px;color:#fff;font-size:11px;cursor:pointer;font-family:'Fira Sans',sans-serif;margin-left:auto;flex-shrink:0;}
+.lp-barwrap{background:rgba(255,255,255,.1);border-radius:99px;height:6px;overflow:hidden;margin-bottom:4px;}
+.lp-bar{height:100%;background:#C4F135;border-radius:99px;transition:width .5s ease;}
+.lp-bartxt{font-size:9px;color:rgba(255,255,255,.4);text-align:right;margin-bottom:10px;}
+.lp-div{height:1px;background:rgba(255,255,255,.08);margin:8px 0;}
+.lp-shield-row{display:flex;align-items:center;gap:6px;}
+.lp-shield-ico{font-size:16px;}
+.lp-shield-txt{font-size:11px;font-weight:700;color:#C4F135;}
+.lp-shield-sub{font-size:9px;color:rgba(255,255,255,.4);margin-top:1px;}
+.lp-ligas-title{font-size:9px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.lp-liga-row{display:flex;align-items:center;gap:6px;padding:3px 0;font-size:10px;color:rgba(255,255,255,.45);}
+.lp-liga-row.cur{color:#C4F135;font-weight:700;}
+.lp-liga-row.done{color:rgba(255,255,255,.3);}
+.lp-liga-ico{font-size:13px;width:16px;text-align:center;flex-shrink:0;}
+.lp-liga-st{margin-left:auto;font-size:10px;}
+
+/* TITULOS */
 .btitle{font-family:'Fira Sans',sans-serif;font-weight:900;font-size:36px;color:#fff;line-height:1.05;margin-bottom:3px;}
-.bsub{font-family:'Fira Sans',sans-serif;font-size:13px;font-style:italic;color:rgba(255,255,255,.6);margin-bottom:16px;font-weight:400;}
+.bsub{font-family:'Fira Sans',sans-serif;font-size:13px;font-style:italic;color:rgba(255,255,255,.6);margin-bottom:16px;}
 
 /* RACHA Y PREGUNTA */
 .two-col{display:flex;gap:10px;align-items:stretch;}
 .racha-block{background:rgba(0,0,0,.18);border-radius:10px;padding:14px 10px;width:128px;min-width:128px;text-align:center;flex-shrink:0;}
-.rl{font-family:'Fira Sans',sans-serif;font-size:9px;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;}
+.rl{font-size:9px;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;}
 .rn{font-family:'Fira Sans',sans-serif;font-weight:900;font-size:50px;color:#C4F135;line-height:1;}
 .rn.bump{animation:bump .35s ease;}
 @keyframes bump{0%{transform:scale(1);}50%{transform:scale(1.3);}100%{transform:scale(1);}}
 .rf{font-size:18px;margin:3px 0 2px;}
-.rm{font-family:'Fira Sans',sans-serif;font-size:10px;color:rgba(255,255,255,.8);font-style:italic;line-height:1.3;margin-top:4px;}
-.rb{font-family:'Fira Sans',sans-serif;font-size:9px;color:rgba(196,241,53,.75);margin-top:4px;}
+.rm{font-size:10px;color:rgba(255,255,255,.8);font-style:italic;line-height:1.3;margin-top:4px;}
+.rb{font-size:9px;color:rgba(196,241,53,.75);margin-top:4px;}
 .q-block{background:rgba(0,0,0,.16);border-radius:10px;padding:13px;flex:1;min-width:0;display:flex;flex-direction:column;}
-.qhook{font-family:'Fira Sans',sans-serif;font-size:9px;font-weight:700;color:#C4F135;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
-.qtxt{font-family:'Fira Sans',sans-serif;font-size:12px;font-weight:700;color:#fff;line-height:1.35;margin-bottom:8px;}
+.qhook{font-size:9px;font-weight:700;color:#C4F135;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.qtxt{font-size:12px;font-weight:700;color:#fff;line-height:1.35;margin-bottom:8px;}
 .qopts{display:flex;flex-direction:column;gap:4px;flex:1;}
 .qopt{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:5px 9px;font-size:11px;font-family:'Fira Sans',sans-serif;color:#fff;cursor:pointer;text-align:left;line-height:1.3;transition:background .15s;}
 .qopt:hover:not([disabled]){background:rgba(255,255,255,.22);}
@@ -58,7 +82,7 @@ body{padding:18px 20px 28px;-webkit-user-select:none;-moz-user-select:none;-ms-u
 .qopt.wrong{background:rgba(255,80,80,.28);border-color:rgba(255,120,120,.7);color:#ffc0c0;}
 .qopt.shielded{background:rgba(255,200,0,.2);border-color:rgba(255,200,0,.6);color:#ffe580;}
 .qopt[disabled]{cursor:default;}
-.qfact{font-family:'Fira Sans',sans-serif;font-size:10px;color:rgba(255,255,255,.7);font-style:italic;margin-top:6px;line-height:1.4;display:none;}
+.qfact{font-size:10px;color:rgba(255,255,255,.7);font-style:italic;margin-top:6px;line-height:1.4;display:none;}
 .qnext{background:#C4F135;color:#1a1a1a;border:none;border-radius:6px;padding:5px 12px;font-family:'Fira Sans',sans-serif;font-weight:700;font-size:11px;cursor:pointer;margin-top:6px;display:none;align-self:flex-start;}
 .dchips{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px;}
 .dchip{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:3px 9px;font-size:10px;font-family:'Fira Sans',sans-serif;color:#fff;cursor:pointer;line-height:1.4;transition:background .15s;}
@@ -84,39 +108,7 @@ body{padding:18px 20px 28px;-webkit-user-select:none;-moz-user-select:none;-ms-u
 .cf{position:absolute;border-radius:2px;animation:cfall 1.3s ease-in forwards;}
 @keyframes cfall{0%{transform:translateY(-10px) rotate(0deg);opacity:1;}100%{transform:translateY(160px) rotate(400deg);opacity:0;}}
 
-/* MODAL PROGRESO */
-.moprog{display:none;position:absolute;inset:0;background:rgba(20,10,10,.92);z-index:30;align-items:flex-start;justify-content:center;overflow-y:auto;border-radius:14px;}
-.moprog.show{display:flex;}
-.mpbox{background:#fff;border-radius:14px;padding:0;width:94%;max-width:340px;overflow:hidden;font-family:'Fira Sans',sans-serif;margin:12px auto;flex-shrink:0;}
-.mphead{background:#F06B6B;padding:18px 20px 14px;position:relative;}
-.mphead-icon{font-size:36px;display:block;margin-bottom:4px;}
-.mphead-liga{font-weight:900;font-size:18px;color:#fff;}
-.mphead-xp{font-size:12px;color:rgba(255,255,255,.75);margin-top:2px;}
-.mphead-close{position:absolute;top:12px;right:14px;background:rgba(0,0,0,.2);border:none;border-radius:50%;width:26px;height:26px;color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Fira Sans',sans-serif;}
-.mpbody{padding:16px 20px;}
-.mp-section{margin-bottom:14px;}
-.mp-section-title{font-size:10px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
-.mp-prog-wrap{background:#f0f0f0;border-radius:99px;height:8px;overflow:hidden;margin-bottom:4px;}
-.mp-prog-bar{height:100%;background:#F06B6B;border-radius:99px;transition:width .6s ease;}
-.mp-prog-txt{font-size:10px;color:#999;text-align:right;}
-.liga-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #f5f5f5;}
-.liga-row:last-child{border-bottom:none;}
-.liga-ico{font-size:18px;width:24px;text-align:center;}
-.liga-info{flex:1;}
-.liga-name{font-size:12px;font-weight:700;color:#333;}
-.liga-xpreq{font-size:10px;color:#aaa;}
-.liga-status{font-size:14px;}
-.mp-shield-box{background:#f9f9f9;border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;}
-.mp-shield-big{font-size:28px;}
-.mp-shield-info{}
-.mp-shield-count{font-size:16px;font-weight:900;color:#1a1a1a;}
-.mp-shield-desc{font-size:10px;color:#888;line-height:1.4;margin-top:2px;}
-.mp-xp-rules{background:#f9f9f9;border-radius:8px;padding:10px 12px;}
-.mp-xp-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#555;padding:3px 0;}
-.mp-xp-val{font-weight:700;color:#F06B6B;}
-.mp-close-btn{display:block;width:100%;background:#F06B6B;color:#fff;border:none;border-radius:0 0 14px 14px;padding:12px;font-family:'Fira Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;}
-
-/* MINI-JUEGO CAZA EMOJIS */
+/* MINI-JUEGO */
 .mgov{display:none;position:absolute;inset:0;background:rgba(0,0,0,.75);z-index:40;align-items:center;justify-content:center;border-radius:14px;}
 .mgov.show{display:flex;}
 .mgbox{background:#1a1a1a;border-radius:16px;padding:18px 20px 20px;max-width:300px;width:92%;text-align:center;font-family:'Fira Sans',sans-serif;}
@@ -137,19 +129,16 @@ body{padding:18px 20px 28px;-webkit-user-select:none;-moz-user-select:none;-ms-u
 .mg-result-title{font-size:15px;font-weight:900;color:#fff;margin-bottom:4px;}
 .mg-result-prize{font-size:12px;color:#C4F135;font-weight:700;}
 .mg-btn{background:#C4F135;color:#1a1a1a;border:none;border-radius:8px;padding:8px 20px;font-family:'Fira Sans',sans-serif;font-weight:700;font-size:12px;cursor:pointer;width:100%;}
-
-/* ANIMACION SUBIDA DE NIVEL */
-.lvlup-flash{animation:lvlflash .6s ease;}
 @keyframes lvlflash{0%{transform:scale(1);}30%{transform:scale(1.15);}60%{transform:scale(0.95);}100%{transform:scale(1);}}
 </style>
 </head>
 <body>
 <div class="fe" id="el"></div>
-<div style="position:relative;z-index:2;" id="mainWrap">
+<div style="position:relative;z-index:2;">
   <div class="topbar">
     <div class="mtag">FP Comercio y Marketing</div>
     <div class="topright">
-      <div class="lvl-badge" id="lvlBadge" onclick="openProgress()">
+      <div class="lvl-badge" id="lvlBadge" onclick="togglePanel(event)">
         <span class="lvl-icon" id="lvlIcon">📦</span>
         <span class="lvl-name" id="lvlName">Aprendiz</span>
         <div class="lvl-barwrap"><div class="lvl-bar" id="lvlBar" style="width:0%"></div></div>
@@ -159,6 +148,30 @@ body{padding:18px 20px 28px;-webkit-user-select:none;-moz-user-select:none;-ms-u
       <div class="shield-badge" id="shieldBadge">
         <span>🛡️</span>
         <span class="shield-txt" id="shieldTxt">x0</span>
+      </div>
+      <!-- PANEL DROPDOWN -->
+      <div class="lvl-panel" id="lvlPanel">
+        <div class="lp-head">
+          <div class="lp-icon" id="lpIcon">📦</div>
+          <div class="lp-info">
+            <div class="lp-liga" id="lpLiga">Aprendiz de almacén</div>
+            <div class="lp-xp" id="lpXp">0 XP totales</div>
+          </div>
+          <button class="lp-close" onclick="closePanel(event)">✕</button>
+        </div>
+        <div class="lp-barwrap"><div class="lp-bar" id="lpBar" style="width:0%"></div></div>
+        <div class="lp-bartxt" id="lpBarTxt">0 / 200 XP para Operario</div>
+        <div class="lp-div"></div>
+        <div class="lp-shield-row">
+          <div class="lp-shield-ico">🛡️</div>
+          <div>
+            <div class="lp-shield-txt" id="lpShieldTxt">Sin protectores</div>
+            <div class="lp-shield-sub">+1 cada 10 aciertos seguidos</div>
+          </div>
+        </div>
+        <div class="lp-div"></div>
+        <div class="lp-ligas-title">Todas las ligas</div>
+        <div id="lpLigas"></div>
       </div>
     </div>
   </div>
@@ -202,49 +215,6 @@ body{padding:18px 20px 28px;-webkit-user-select:none;-moz-user-select:none;-ms-u
       <div class="mg-result-prize" id="mgResPrize">+50 XP</div>
     </div>
     <button class="mg-btn" id="mgBtn" style="display:none" onclick="closeMG()">¡A por la siguiente! →</button>
-  </div>
-</div>
-
-<!-- MODAL PROGRESO -->
-<div class="moprog" id="moprog">
-  <div class="mpbox">
-    <div class="mphead">
-      <button class="mphead-close" onclick="closeProgress()">✕</button>
-      <span class="mphead-icon" id="mpIcon">📦</span>
-      <div class="mphead-liga" id="mpLiga">Aprendiz de almacén</div>
-      <div class="mphead-xp" id="mpXpTotal">0 XP totales</div>
-    </div>
-    <div class="mpbody">
-      <div class="mp-section">
-        <div class="mp-section-title">Progreso al siguiente nivel</div>
-        <div class="mp-prog-wrap"><div class="mp-prog-bar" id="mpProgBar" style="width:0%"></div></div>
-        <div class="mp-prog-txt" id="mpProgTxt">0 / 200 XP</div>
-      </div>
-      <div class="mp-section">
-        <div class="mp-section-title">🛡️ Protectores de racha</div>
-        <div class="mp-shield-box">
-          <div class="mp-shield-big">🛡️</div>
-          <div class="mp-shield-info">
-            <div class="mp-shield-count" id="mpShieldCount">0 protectores</div>
-            <div class="mp-shield-desc">Absorben un fallo sin romper tu racha.<br>Ganas 1 cada 10 aciertos seguidos.</div>
-          </div>
-        </div>
-      </div>
-      <div class="mp-section">
-        <div class="mp-section-title">Todas las ligas</div>
-        <div id="mpLigaList"></div>
-      </div>
-      <div class="mp-section">
-        <div class="mp-section-title">¿Cómo ganar XP?</div>
-        <div class="mp-xp-rules">
-          <div class="mp-xp-row"><span>Responder una pregunta</span><span class="mp-xp-val">+10 XP</span></div>
-          <div class="mp-xp-row"><span>Respuesta correcta</span><span class="mp-xp-val">+20 XP</span></div>
-          <div class="mp-xp-row"><span>Racha de 5+ aciertos</span><span class="mp-xp-val">×1.5</span></div>
-          <div class="mp-xp-row"><span>Racha de 10+ aciertos</span><span class="mp-xp-val">×2</span></div>
-        </div>
-      </div>
-    </div>
-    <button class="mp-close-btn" onclick="closeProgress()">Cerrar</button>
   </div>
 </div>
 
@@ -330,62 +300,49 @@ var QS=[
 {t:'mc',h:'¿Sabías que...',q:'¿Qué es un operador logístico integral?',o:['Empresa que gestiona transporte, almacenaje y distribución para terceros','Un transportista autónomo','El departamento de logística de una empresa','Una empresa de mensajería urgente'],a:0,f:'DHL, XPO, ID Logistics o DSV son ejemplos de operadores logísticos integrales en España.'},
 {t:'mc',h:'¿Cuál crees?',q:'¿Qué es el flujo tenso en logística?',o:['Abastecer la producción sin apenas stock intermedio','Un tipo de transporte urgente','El flujo de mercancía peligrosa','El movimiento rápido en almacén'],a:0,f:'El flujo tenso es el extremo del just-in-time: la mercancía llega justo cuando se necesita.'}
 ];
-
 function seededRand(seed){var x=Math.sin(seed+1)*10000;return x-Math.floor(x);}
 function shuffleSeeded(arr,seed){var a=arr.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(seededRand(seed+i)*(i+1));var tmp=a[i];a[i]=a[j];a[j]=tmp;}return a;}
 
 var MOTS=[[0,'¡Empieza tu racha hoy!'],[1,'¡Primera correcta! Sigue así 💪'],[2,'¡Racha de 2! Calentando motores...'],[3,'¡3 seguidas! Ya te lo estás currando 🔥'],[5,'¡5 seguidas! Huele a profesional 💥'],[7,'¡Imparable! 7 sin fallar 🌟'],[10,'¡10 SEGUIDAS! Eres un crack 🏆'],[15,'¡15! Podrías dar tú la clase 👑'],[20,'¡20 SIN FALLO! Leyenda del almacén 🥇'],[999,'¡Racha brutal! Nadie llega tan lejos 🚀']];
 var PRIZES=[{e:'📦',t:'¡Artículo bien ubicado!'},{e:'🏷️',t:'¡SKU verificado!'},{e:'✅',t:'¡Picking sin errores!'},{e:'🚛',t:'¡Expedición aprobada!'},{e:'🔥',t:'¡Racha en marcha!'},{e:'🌟',t:'¡Top operario!'},{e:'🏆',t:'¡Profesional en formación!'},{e:'💥',t:'¡Correcto!'}];
 var EMOJIS=['📦','🏭','🚛','📋','🔍','🏷️','🪣','📊','⚙️','🔧','📬','🗂️'];
+var MG_EMOJIS=['📦','🚛','🏷️','🔍','📋','⚙️','🔧','📬','🗂️','🪣','📊','🏭'];
 
 function gToday(){var d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
 function gDay(){return Math.floor((new Date()-new Date(2024,8,1))/86400000);}
 
-var streak=0,best=0,atd=false,savedAns=-1,shield=0,xp=0,prevLigaIdx=0;
+var streak=0,best=0,atd=false,savedAns=-1,shield=0,xp=0;
 try{
-  streak=parseInt(localStorage.getItem("alm_s")||"0");
-  best=parseInt(localStorage.getItem("alm_b")||"0");
-  shield=parseInt(localStorage.getItem("alm_shield")||"0");
-  xp=parseInt(localStorage.getItem("alm_xp")||"0");
-  atd=localStorage.getItem("alm_atd")===gToday();
-  savedAns=atd?parseInt(localStorage.getItem("alm_ans")||"-1"):-1;
+  streak=parseInt(localStorage.getItem('alm_s')||'0');
+  best=parseInt(localStorage.getItem('alm_b')||'0');
+  shield=parseInt(localStorage.getItem('alm_shield')||'0');
+  xp=parseInt(localStorage.getItem('alm_xp')||'0');
+  atd=localStorage.getItem('alm_atd')===gToday();
+  savedAns=atd?parseInt(localStorage.getItem('alm_ans')||'-1'):-1;
 }catch(e){}
 
 function save(ans){
   try{
-    localStorage.setItem("alm_s",streak);
-    localStorage.setItem("alm_b",best);
-    localStorage.setItem("alm_atd",gToday());
-    localStorage.setItem("alm_shield",shield);
-    localStorage.setItem("alm_xp",xp);
-    if(ans!==undefined)localStorage.setItem("alm_ans",ans);
+    localStorage.setItem('alm_s',streak);localStorage.setItem('alm_b',best);
+    localStorage.setItem('alm_atd',gToday());localStorage.setItem('alm_shield',shield);
+    localStorage.setItem('alm_xp',xp);
+    if(ans!==undefined)localStorage.setItem('alm_ans',ans);
   }catch(e){}
 }
 
-function getLigaIdx(x){
-  var idx=0;
-  for(var i=0;i<LIGAS.length;i++){if(x>=LIGAS[i].xp)idx=i;}
-  return idx;
-}
-
-function getLigaProgress(x){
-  var idx=getLigaIdx(x);
-  if(idx>=LIGAS.length-1) return {pct:100,cur:x,next:LIGAS[idx].xp,idx:idx};
+function getLigaIdx(v){var idx=0;for(var i=0;i<LIGAS.length;i++){if(v>=LIGAS[i].xp)idx=i;}return idx;}
+function getLigaProgress(v){
+  var idx=getLigaIdx(v);
+  if(idx>=LIGAS.length-1)return{pct:100,cur:v,next:v,idx:idx};
   var cur=LIGAS[idx].xp,next=LIGAS[idx+1].xp;
-  var pct=Math.min(100,Math.round((x-cur)/(next-cur)*100));
-  return {pct:pct,cur:x-cur,next:next-cur,idx:idx};
+  return{pct:Math.min(100,Math.round((v-cur)/(next-cur)*100)),cur:v-cur,next:next-cur,idx:idx};
 }
-
 function addXP(amount){
-  var mult=1;
-  if(streak>=10) mult=2;
-  else if(streak>=5) mult=1.5;
+  var mult=streak>=10?2:streak>=5?1.5:1;
   var gain=Math.round(amount*mult);
-  var oldIdx=getLigaIdx(xp);
-  xp+=gain;
+  var oldIdx=getLigaIdx(xp);xp+=gain;
   var newIdx=getLigaIdx(xp);
-  if(newIdx>oldIdx) return {gain:gain,levelUp:true,liga:LIGAS[newIdx]};
-  return {gain:gain,levelUp:false,liga:null};
+  return{gain:gain,levelUp:newIdx>oldIdx,liga:newIdx>oldIdx?LIGAS[newIdx]:null};
 }
 
 function getMot(n){var m=MOTS[0][1];for(var i=0;i<MOTS.length;i++){if(n>=MOTS[i][0])m=MOTS[i][1];}return m;}
@@ -398,11 +355,9 @@ function updUI(){
   document.getElementById('rf').textContent=getFire(streak);
   document.getElementById('rm').textContent=getMot(streak);
   document.getElementById('rb').textContent=best>0?'Récord: '+best:'';
-  // Shield badge
   var sb=document.getElementById('shieldBadge');
   document.getElementById('shieldTxt').textContent='x'+shield;
   sb.className=shield>0?'shield-badge has-shield':'shield-badge';
-  // Level badge
   var prog=getLigaProgress(xp);
   var liga=LIGAS[prog.idx];
   document.getElementById('lvlIcon').textContent=liga.icon;
@@ -411,41 +366,138 @@ function updUI(){
   document.getElementById('lvlXp').textContent=xp+' XP';
 }
 
-function openProgress(){
+function togglePanel(e){
+  e.stopPropagation();
+  var panel=document.getElementById('lvlPanel');
+  if(panel.classList.contains('open')){
+    panel.classList.remove('open');
+  } else {
+    updatePanel();
+    panel.classList.add('open');
+  }
+}
+function closePanel(e){
+  if(e)e.stopPropagation();
+  document.getElementById('lvlPanel').classList.remove('open');
+}
+function updatePanel(){
   var prog=getLigaProgress(xp);
   var liga=LIGAS[prog.idx];
-  document.getElementById('mpIcon').textContent=liga.icon;
-  document.getElementById('mpLiga').textContent=liga.name;
-  document.getElementById('mpXpTotal').textContent=xp+' XP totales';
-  document.getElementById('mpProgBar').style.width=prog.pct+'%';
   var nextLiga=prog.idx<LIGAS.length-1?LIGAS[prog.idx+1]:null;
-  document.getElementById('mpProgTxt').textContent=nextLiga?prog.cur+' / '+prog.next+' XP para '+nextLiga.name:'¡Nivel máximo alcanzado!';
-  document.getElementById('mpShieldCount').textContent=shield===0?'Sin protectores':shield+(shield===1?' protector':' protectores');
-  // Liga list
+  document.getElementById('lpIcon').textContent=liga.icon;
+  document.getElementById('lpLiga').textContent=liga.name;
+  document.getElementById('lpXp').textContent=xp+' XP totales';
+  document.getElementById('lpBar').style.width=prog.pct+'%';
+  document.getElementById('lpBarTxt').textContent=nextLiga?prog.cur+' / '+prog.next+' XP para '+nextLiga.name:'¡Nivel máximo!';
+  document.getElementById('lpShieldTxt').textContent=shield===0?'Sin protectores':shield+(shield===1?' protector':' protectores');
   var html='';
   for(var i=0;i<LIGAS.length;i++){
     var l=LIGAS[i];
-    var status=i<prog.idx?'✅':i===prog.idx?'👉':'🔒';
-    var nameStyle=i===prog.idx?'font-weight:700;color:#F06B6B;':'';
-    html+='<div class="liga-row"><div class="liga-ico">'+l.icon+'</div><div class="liga-info"><div class="liga-name" style="'+nameStyle+'">'+l.name+'</div><div class="liga-xpreq">'+l.xp+' XP</div></div><div class="liga-status">'+status+'</div></div>';
+    var cls='lp-liga-row'+(i<prog.idx?' done':i===prog.idx?' cur':'');
+    var st=i<prog.idx?'✅':i===prog.idx?'👉':'🔒';
+    html+='<div class="'+cls+'"><span class="lp-liga-ico">'+l.icon+'</span>'+l.name+'<span class="lp-liga-st">'+st+'</span></div>';
   }
-  document.getElementById('mpLigaList').innerHTML=html;
-  document.getElementById('moprog').classList.add('show');
+  document.getElementById('lpLigas').innerHTML=html;
 }
-function closeProgress(){document.getElementById('moprog').classList.remove('show');}
+
+document.addEventListener('click',function(e){
+  var panel=document.getElementById('lvlPanel');
+  var badge=document.getElementById('lvlBadge');
+  if(panel&&panel.classList.contains('open')){
+    if(!panel.contains(e.target)&&!badge.contains(e.target)){
+      panel.classList.remove('open');
+    }
+  }
+});
+
+// ---- MINI-JUEGO ----
+var mgActive=false,mgCaught=0,mgTimerInt=null,mgSpawnInt=null;
+var questionsAnswered=0;
+function shouldTriggerMG(){return questionsAnswered>0&&questionsAnswered%7===0&&Math.random()<0.6;}
+function openMG(){
+  mgActive=true;mgCaught=0;
+  clearInterval(mgTimerInt);clearInterval(mgSpawnInt);
+  document.getElementById('mgResult').style.display='none';
+  document.getElementById('mgBtn').style.display='none';
+  document.getElementById('mgSub').textContent='Toca todos los que puedas en 4 segundos';
+  document.getElementById('mgCount').textContent='Cazados: 0';
+  document.getElementById('mgGrid').innerHTML='';
+  document.getElementById('mgTimerBar').style.width='100%';
+  document.getElementById('mgTimerBar').className='mg-timer-bar';
+  document.getElementById('mgov').classList.add('show');
+  var spawnCount=0;
+  mgSpawnInt=setInterval(function(){
+    if(!mgActive)return;
+    spawnMGEmoji();spawnCount++;
+    if(spawnCount>18)clearInterval(mgSpawnInt);
+  },220);
+  var elapsed=0,total=4000;
+  mgTimerInt=setInterval(function(){
+    elapsed+=100;
+    var pct=Math.max(0,100-(elapsed/total*100));
+    var bar=document.getElementById('mgTimerBar');
+    if(bar){bar.style.width=pct+'%';if(pct<50)bar.className='mg-timer-bar warn';if(pct<20)bar.className='mg-timer-bar danger';}
+    if(elapsed>=total){clearInterval(mgTimerInt);clearInterval(mgSpawnInt);mgActive=false;endMG();}
+  },100);
+}
+function spawnMGEmoji(){
+  var grid=document.getElementById('mgGrid');if(!grid)return;
+  var e=document.createElement('div');e.className='mg-emoji';
+  e.textContent=MG_EMOJIS[Math.floor(Math.random()*MG_EMOJIS.length)];
+  var gw=grid.offsetWidth||260;
+  e.style.left=Math.floor(Math.random()*(gw-40))+'px';
+  e.style.top=Math.floor(Math.random()*120)+'px';
+  e.addEventListener('click',function(){
+    if(!mgActive)return;
+    e.className='mg-emoji hit';mgCaught++;
+    document.getElementById('mgCount').textContent='Cazados: '+mgCaught;
+    setTimeout(function(){if(e.parentNode)e.parentNode.removeChild(e);},150);
+  });
+  grid.appendChild(e);
+  setTimeout(function(){
+    if(e.parentNode&&!e.className.includes('hit')){
+      e.style.transition='opacity .3s';e.style.opacity='0';
+      setTimeout(function(){if(e.parentNode)e.parentNode.removeChild(e);},300);
+    }
+  },1200);
+}
+function endMG(){
+  document.getElementById('mgGrid').innerHTML='';
+  var icon,title,prize,xpGain=0,shieldGain=0;
+  if(mgCaught<=3){icon='📦';title='¡Buen intento!';xpGain=20;prize='+'+xpGain+' XP';}
+  else if(mgCaught<=6){icon='🏷️';title='¡Nada mal!';xpGain=50;prize='+'+xpGain+' XP';}
+  else if(mgCaught<=9){icon='🔥';title='¡Buenas manos!';xpGain=80;prize='+'+xpGain+' XP';}
+  else if(mgCaught<=12){icon='💥';title='¡Increíble!';xpGain=120;prize='+'+xpGain+' XP';}
+  else{icon='🏆';title='¡LEYENDA!';xpGain=120;shieldGain=1;prize='+'+xpGain+' XP + 🛡️ Protector';}
+  xp+=xpGain;shield+=shieldGain;save();updUI();
+  document.getElementById('mgResIcon').textContent=icon;
+  document.getElementById('mgResTitle').textContent=title+' — '+mgCaught+' cazados';
+  document.getElementById('mgResPrize').textContent=prize;
+  document.getElementById('mgResult').style.display='block';
+  document.getElementById('mgBtn').style.display='block';
+  document.getElementById('mgCount').textContent='Cazados: '+mgCaught;
+  document.getElementById('mgSub').textContent='¡Tiempo!';
+  if(shieldGain>0)confettiMG();
+}
+function confettiMG(){
+  var box=document.querySelector('.mgbox');
+  var cols=['#C4F135','#F06B6B','#fff','#FFD700'];
+  for(var i=0;i<20;i++){
+    var c=document.createElement('div');
+    c.style.cssText='position:absolute;border-radius:2px;width:'+(5+Math.random()*5)+'px;height:'+(5+Math.random()*5)+'px;background:'+cols[Math.floor(Math.random()*cols.length)]+';left:'+(10+Math.random()*80)+'%;top:10px;animation:cfall '+(1+Math.random()*.7)+'s ease-in forwards;animation-delay:'+(Math.random()*.3)+'s;';
+    box.appendChild(c);setTimeout(function(){if(c.parentNode)c.parentNode.removeChild(c);},2000);
+  }
+}
+function closeMG(){document.getElementById('mgov').classList.remove('show');clearInterval(mgTimerInt);clearInterval(mgSpawnInt);mgActive=false;}
 
 var cQ=null,cQShuffled=null,selId=null,selTxt=null,slots=[];
 
 function getDayQuestion(){
-  var day=gDay();
-  var qIdx=day%QS.length;
-  var q=QS[qIdx];
+  var day=gDay(),qIdx=day%QS.length,q=QS[qIdx];
   if(q.t!=='mc')return{q:q,shuffled:null,correctShuffledIdx:-1};
   var indices=[];for(var i=0;i<q.o.length;i++)indices.push(i);
   var shuffledIdx=shuffleSeeded(indices,day*100);
-  var newOpts=shuffledIdx.map(function(i){return q.o[i];});
-  var correctShuffledIdx=shuffledIdx.indexOf(q.a);
-  return{q:q,shuffled:newOpts,correctShuffledIdx:correctShuffledIdx};
+  return{q:q,shuffled:shuffledIdx.map(function(i){return q.o[i];}),correctShuffledIdx:shuffledIdx.indexOf(q.a)};
 }
 
 function render(){
@@ -455,15 +507,11 @@ function render(){
 }
 
 function renderMC(el,dq){
-  var q=dq.q,correctIdx=dq.correctShuffledIdx,opts=dq.shuffled;
-  var dis=atd?'disabled':'';
+  var q=dq.q,correctIdx=dq.correctShuffledIdx,opts=dq.shuffled,dis=atd?'disabled':'';
   var h='<div class="qhook">'+q.h+'</div><div class="qtxt">'+q.q+'</div><div class="qopts">';
   for(var i=0;i<opts.length;i++){
     var cls='qopt';
-    if(atd&&savedAns>=0){
-      if(i===correctIdx)cls='qopt correct';
-      else if(i===savedAns&&savedAns!==correctIdx)cls='qopt wrong';
-    }
+    if(atd&&savedAns>=0){if(i===correctIdx)cls='qopt correct';else if(i===savedAns&&savedAns!==correctIdx)cls='qopt wrong';}
     h+='<button class="'+cls+'" '+dis+' onclick="answerMC('+i+')">'+String.fromCharCode(65+i)+') '+opts[i]+'</button>';
   }
   h+='</div><div class="qfact" id="qf" style="display:'+(atd?'block':'none')+'">💡 '+q.f+'</div>';
@@ -478,35 +526,25 @@ function answerMC(i){
   for(var b=0;b<btns.length;b++)btns[b].disabled=true;
   if(i===correctIdx){
     btns[i].className='qopt correct';
-    streak++;
-    var newShield=false;
+    streak++;var newShield=false;
     if(streak>0&&streak%10===0){shield++;newShield=true;}
     if(streak>best)best=streak;
-    var xpRes=addXP(20);
-    save(i);updUI();
+    var xpRes=addXP(20);save(i);updUI();
     var pr=PRIZES[Math.floor(Math.random()*PRIZES.length)],f=dq.q.f;
     setTimeout(function(){showP(true,f,pr,newShield,xpRes);},350);
   }else{
     if(shield>0){
-      shield--;
-      btns[i].className='qopt shielded';
-      btns[correctIdx].className='qopt correct';
-      var xpRes=addXP(10);
-      save(i);updUI();
-      var f=dq.q.f;
+      shield--;btns[i].className='qopt shielded';btns[correctIdx].className='qopt correct';
+      var xpRes=addXP(10);save(i);updUI();var f=dq.q.f;
       setTimeout(function(){showPShield(f);},350);
     }else{
-      btns[i].className='qopt wrong';
-      btns[correctIdx].className='qopt correct';
-      var old=streak,f=dq.q.f;
-      var xpRes=addXP(10);
-      streak=0;save(i);updUI();
+      btns[i].className='qopt wrong';btns[correctIdx].className='qopt correct';
+      var old=streak,f=dq.q.f,xpRes=addXP(10);streak=0;save(i);updUI();
       setTimeout(function(){showP(false,f,null,old,xpRes);},350);
     }
   }
   document.getElementById('qf').style.display='block';
   document.getElementById('qn').style.display='inline-block';
-  // Contar pregunta y disparar mini-juego si toca
   questionsAnswered++;
   if(shouldTriggerMG()){setTimeout(function(){openMG();},1800);}
 }
@@ -534,7 +572,6 @@ function selChip(id,el){
   if(!el||el.classList.contains('used'))return;
   el.classList.add('selected');selId=id;selTxt=el.getAttribute('data-txt');
 }
-
 function placeChip(si){
   if(selId===null)return;
   var prev=slots[si];slots[si]={id:selId,txt:selTxt};
@@ -547,7 +584,6 @@ function placeChip(si){
   if(slEl)slEl.classList.add('filled');
   selId=null;selTxt=null;
 }
-
 function checkDrag(){
   if(atd)return;
   var q=cQ,ok=true;
@@ -561,12 +597,10 @@ function checkDrag(){
   document.getElementById('qf').style.display='block';
   document.getElementById('qn').style.display='inline-block';
   if(ok){
-    streak++;
-    var newShield=false;
+    streak++;var newShield=false;
     if(streak>0&&streak%10===0){shield++;newShield=true;}
     if(streak>best)best=streak;
-    var xpRes=addXP(20);
-    save();updUI();
+    var xpRes=addXP(20);save();updUI();
     var pr=PRIZES[Math.floor(Math.random()*PRIZES.length)],f=cQ.f;
     setTimeout(function(){showP(true,f,pr,newShield,xpRes);},400);
   }else{
@@ -590,18 +624,16 @@ function nextQ(){
   if(q.t==='mc'){
     var indices=[];for(var i=0;i<q.o.length;i++)indices.push(i);
     var shuffledIdx=shuffleSeeded(indices,Math.floor(Math.random()*9999));
-    var newOpts=shuffledIdx.map(function(i){return q.o[i];});
-    var correctShuffledIdx=shuffledIdx.indexOf(q.a);
-    cQShuffled={q:q,shuffled:newOpts,correctShuffledIdx:correctShuffledIdx};
+    cQShuffled={q:q,shuffled:shuffledIdx.map(function(i){return q.o[i];}),correctShuffledIdx:shuffledIdx.indexOf(q.a)};
     renderMC(el,cQShuffled);
   }else{renderDrag(el,q);}
 }
 
 function showP(win,fact,pr,extra,xpRes){
   if(win&&pr){
-    var title=extra?'🛡️ ¡Escudo de racha conseguido!':pr.t;
-    var desc=extra?'Has llegado a una racha de '+streak+'. ¡Escudo ganado! +'+xpRes.gain+' XP. 💡 '+fact:'+'+xpRes.gain+' XP. 💡 '+fact;
-    if(xpRes&&xpRes.levelUp){title='⬆️ ¡Subiste a '+xpRes.liga.name+'!';desc=xpRes.liga.icon+' Nueva liga alcanzada. +'+xpRes.gain+' XP. 💡 '+fact;}
+    var title=extra?'🛡️ ¡Escudo conseguido!':pr.t;
+    var desc=extra?'Racha de '+streak+'. ¡Escudo ganado! +'+xpRes.gain+' XP. 💡 '+fact:'+'+xpRes.gain+' XP. 💡 '+fact;
+    if(xpRes&&xpRes.levelUp){title='⬆️ ¡Subiste a '+xpRes.liga.name+'!';desc=xpRes.liga.icon+' +'+xpRes.gain+' XP. 💡 '+fact;}
     document.getElementById('pe').textContent=xpRes&&xpRes.levelUp?xpRes.liga.icon:pr.e;
     document.getElementById('pt').textContent=title;
     document.getElementById('pd').textContent=desc;
@@ -614,14 +646,12 @@ function showP(win,fact,pr,extra,xpRes){
   document.getElementById('ov').classList.add('show');
   if(win)confetti();
 }
-
 function showPShield(fact){
   document.getElementById('pe').textContent='🛡️';
   document.getElementById('pt').textContent='¡Escudo activado!';
-  document.getElementById('pd').textContent='Tu escudo ha absorbido el fallo. La racha continúa. 💡 '+fact;
+  document.getElementById('pd').textContent='Tu escudo absorbió el fallo. La racha continúa. 💡 '+fact;
   document.getElementById('ov').classList.add('show');
 }
-
 function closeP(){document.getElementById('ov').classList.remove('show');}
 
 function confetti(){
@@ -644,135 +674,8 @@ function spawnEmoji(){
 for(var i=0;i<5;i++)setTimeout(spawnEmoji,i*900);
 setInterval(spawnEmoji,1300);
 
-// ---- MINI-JUEGO CAZA EMOJIS ----
-var MG_EMOJIS=['📦','🚛','🏷️','🔍','📋','⚙️','🔧','📬','🗂️','🪣','📊','🏭'];
-var mgActive=false,mgCaught=0,mgInterval=null,mgTimerInt=null,mgSpawnInt=null;
-var questionsAnswered=0;
-
-function shouldTriggerMG(){
-  // Cada 7 preguntas, 60% de probabilidad
-  return questionsAnswered>0 && questionsAnswered%7===0 && Math.random()<0.6;
-}
-
-function openMG(){
-  mgActive=true;mgCaught=0;
-  clearInterval(mgInterval);clearInterval(mgTimerInt);clearInterval(mgSpawnInt);
-  document.getElementById('mgResult').style.display='none';
-  document.getElementById('mgBtn').style.display='none';
-  document.getElementById('mgSub').textContent='Toca todos los que puedas en 4 segundos';
-  document.getElementById('mgCount').textContent='Cazados: 0';
-  document.getElementById('mgGrid').innerHTML='';
-  document.getElementById('mgTimerBar').style.width='100%';
-  document.getElementById('mgTimerBar').className='mg-timer-bar';
-  document.getElementById('mgov').classList.add('show');
-
-  // Spawner de emojis
-  var spawnCount=0;
-  mgSpawnInt=setInterval(function(){
-    if(!mgActive)return;
-    spawnMGEmoji();
-    spawnCount++;
-    if(spawnCount>18)clearInterval(mgSpawnInt);
-  },220);
-
-  // Timer 4 segundos
-  var elapsed=0;
-  var total=4000;
-  mgTimerInt=setInterval(function(){
-    elapsed+=100;
-    var pct=Math.max(0,100-(elapsed/total*100));
-    var bar=document.getElementById('mgTimerBar');
-    if(bar){
-      bar.style.width=pct+'%';
-      if(pct<50)bar.className='mg-timer-bar warn';
-      if(pct<20)bar.className='mg-timer-bar danger';
-    }
-    if(elapsed>=total){
-      clearInterval(mgTimerInt);
-      clearInterval(mgSpawnInt);
-      mgActive=false;
-      endMG();
-    }
-  },100);
-}
-
-function spawnMGEmoji(){
-  var grid=document.getElementById('mgGrid');
-  if(!grid)return;
-  var e=document.createElement('div');
-  e.className='mg-emoji';
-  e.textContent=MG_EMOJIS[Math.floor(Math.random()*MG_EMOJIS.length)];
-  var gw=grid.offsetWidth||260;
-  var left=Math.floor(Math.random()*(gw-40));
-  var top=Math.floor(Math.random()*120);
-  e.style.left=left+'px';
-  e.style.top=top+'px';
-  e.addEventListener('click',function(){
-    if(!mgActive)return;
-    e.className='mg-emoji hit';
-    mgCaught++;
-    document.getElementById('mgCount').textContent='Cazados: '+mgCaught;
-    setTimeout(function(){if(e.parentNode)e.parentNode.removeChild(e);},150);
-  });
-  grid.appendChild(e);
-  // Auto-desaparece en 1.2s si no se toca
-  setTimeout(function(){
-    if(e.parentNode&&!e.className.includes('hit')){
-      e.style.transition='opacity .3s';
-      e.style.opacity='0';
-      setTimeout(function(){if(e.parentNode)e.parentNode.removeChild(e);},300);
-    }
-  },1200);
-}
-
-function endMG(){
-  document.getElementById('mgGrid').innerHTML='';
-  var icon,title,prize,xpGain=0,shieldGain=0;
-  if(mgCaught<=3){icon='📦';title='¡Buen intento!';xpGain=20;prize='+'+xpGain+' XP';}
-  else if(mgCaught<=6){icon='🏷️';title='¡Nada mal!';xpGain=50;prize='+'+xpGain+' XP';}
-  else if(mgCaught<=9){icon='🔥';title='¡Buenas manos!';xpGain=80;prize='+'+xpGain+' XP';}
-  else if(mgCaught<=12){icon='💥';title='¡Increíble!';xpGain=120;prize='+'+xpGain+' XP';}
-  else{icon='🏆';title='¡LEYENDA!';xpGain=120;shieldGain=1;prize='+'+xpGain+' XP + 🛡️ Protector';}
-
-  // Aplicar recompensa
-  xp+=xpGain;
-  shield+=shieldGain;
-  save();updUI();
-
-  document.getElementById('mgResIcon').textContent=icon;
-  document.getElementById('mgResTitle').textContent=title+' — '+mgCaught+' cazados';
-  document.getElementById('mgResPrize').textContent=prize;
-  document.getElementById('mgResult').style.display='block';
-  document.getElementById('mgBtn').style.display='block';
-  document.getElementById('mgCount').textContent='Cazados: '+mgCaught;
-  document.getElementById('mgSub').textContent='¡Tiempo!';
-  if(shieldGain>0)confettiMG();
-}
-
-function confettiMG(){
-  var box=document.querySelector('.mgbox');
-  var cols=['#C4F135','#F06B6B','#fff','#FFD700'];
-  for(var i=0;i<20;i++){
-    var c=document.createElement('div');
-    c.style.cssText='position:absolute;border-radius:2px;width:'+(5+Math.random()*5)+'px;height:'+(5+Math.random()*5)+'px;background:'+cols[Math.floor(Math.random()*cols.length)]+';left:'+(10+Math.random()*80)+'%;top:10px;animation:cfall '+(1+Math.random()*.7)+'s ease-in forwards;animation-delay:'+(Math.random()*.3)+'s;';
-    box.appendChild(c);
-    setTimeout(function(){if(c.parentNode)c.parentNode.removeChild(c);},2000);
-  }
-}
-
-function closeMG(){
-  document.getElementById('mgov').classList.remove('show');
-  clearInterval(mgTimerInt);clearInterval(mgSpawnInt);
-  mgActive=false;
-}
-// ---- FIN MINI-JUEGO ----
-
-// Bloquear clic derecho
 document.addEventListener('contextmenu',function(e){e.preventDefault();});
-// Bloquear Ctrl+C, Ctrl+A, Ctrl+X
-document.addEventListener('keydown',function(e){
-  if(e.ctrlKey&&(e.key==='c'||e.key==='a'||e.key==='x'||e.key==='u')){e.preventDefault();}
-});
+document.addEventListener('keydown',function(e){if(e.ctrlKey&&(e.key==='c'||e.key==='a'||e.key==='x'||e.key==='u'))e.preventDefault();});
 
 updUI();render();
 </script>
